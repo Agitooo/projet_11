@@ -1,5 +1,5 @@
-from server import app
-from tests.conftest import client
+from GUDLFT.server import app
+from GUDLFT.tests.conftest import client
 
 
 class TestLoginLogout:
@@ -18,18 +18,18 @@ class TestLoginLogout:
         email = ""
         result = self.client.post('/showSummary', data={"email": email})
         assert result.status_code == 200
-        assert "email must not be empty" in result.data
+        assert "email must not be empty" in result.data.decode()
 
     def test_login_invalid(self):
         email = "invalid@email.test"
         result = self.client.post('/showSummary', data={"email": email})
         assert result.status_code == 200
-        assert "email not found" in result.data
+        assert "email not found" in result.data.decode()
 
     def test_view_points(self):
-        result = self.client.get("'/viewsPoints'")
+        result = self.client.get('/viewsPoints')
         assert result.status_code == 200
 
     def test_logout(self):
-        result = self.client.get("'/logout'")
-        assert result.status_code == 200
+        result = self.client.get('/logout')
+        assert result.status_code == 302

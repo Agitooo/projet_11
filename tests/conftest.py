@@ -2,8 +2,8 @@ import pytest
 import os
 # import server
 
-from server import app
-from flask import Flask
+from GUDLFT.server import app
+# from flask import Flask
 
 
 @pytest.fixture

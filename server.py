@@ -1,4 +1,5 @@
 import json
+from datetime import datetime
 from flask import Flask, render_template, request, redirect, flash, url_for
 
 
@@ -47,13 +48,31 @@ def showSummary():
 
 @app.route('/book/<competition>/<club>')
 def book(competition, club):
-    foundClub = [c for c in clubs if c['name'] == club][0]
-    foundCompetition = [c for c in competitions if c['name'] == competition][0]
-    if foundClub and foundCompetition:
-        return render_template('booking.html', club=foundClub, competition=foundCompetition)
+
+    # found_club = [c for c in clubs if c['name'] == club][0]
+    found_club = None
+    for c in clubs:
+        if c['name'] == club:
+            found_club = c
+            break
+
+    # found_competition = [c for c in competitions if c['name'] == competition][0]
+    found_competition = None
+    for c in competitions:
+        if c['name'] == competition:
+            datetime_str = c['date']
+            datetime_object = datetime.strptime(datetime_str, '%Y-%m-%d %H:%M:%S')
+            if datetime_object < datetime.now():
+                flash("This competition is done.")
+                return render_template('welcome.html', club=found_club, competitions=competitions)
+            found_competition = c
+            break
+
+    if found_club and found_competition:
+        return render_template('booking.html', club=found_club, competition=found_competition)
     else:
         flash("Something went wrong-please try again")
-        return render_template('welcome.html', club=club, competitions=competitions)
+        return render_template('welcome.html', club=found_club, competitions=competitions)
 
 
 @app.route('/purchasePlaces', methods=['POST'])

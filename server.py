@@ -4,15 +4,15 @@ from flask import Flask, render_template, request, redirect, flash, url_for
 
 
 def loadClubs():
-    with open('clubs.json') as c:
-        listOfClubs = json.load(c)['clubs']
-        return listOfClubs
+    with open('clubs.json') as clubs:
+        clubs_list = json.load(clubs)['clubs']
+        return clubs_list
 
 
 def loadCompetitions():
     with open('competitions.json') as comps:
-        listOfCompetitions = json.load(comps)['competitions']
-        return listOfCompetitions
+        competitions_list = json.load(comps)['competitions']
+        return competitions_list
 
 
 app = Flask(__name__)

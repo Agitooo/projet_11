@@ -5,4 +5,5 @@ lib
 .idea
 .envrc
 .coverage
+/img
 __pycache__

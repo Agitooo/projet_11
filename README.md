@@ -56,10 +56,9 @@ Les tests sont situés dans le dossier tests, le module pytest permet de lancer 
 
       pytest
 
-Il y a également la possibilité de tester la couverture des tests sur le projet et d'avoir un rapport, 
-avec le module coverage via la commande :
+Il y a également la possibilité de tester la couverture des tests sur le projet et d'avoir un rapport via la commande :
 
-      coverage report
+      pytest --cov=GUDLFT.server tests/
 
 Les performances de l'application peuvent être testées grace au module locust via la commande en se 
 plaçant dans le repertoire /tests/performance_tests :

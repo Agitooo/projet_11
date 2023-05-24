@@ -32,8 +32,17 @@ def showSummary():
         flash("email must not be empty")
         return render_template('index.html')
 
-    club = [club for club in clubs if club['email'] == request.form['email']][0]
-    return render_template('welcome.html', club=club, competitions=competitions)
+    club = None
+    for c in clubs:
+        if c['email'] == request.form['email']:
+            club = c
+            break
+
+    if club:
+        return render_template('welcome.html', club=club, competitions=competitions)
+    else:
+        flash("email not found")
+        return render_template('index.html')
 
 
 @app.route('/book/<competition>/<club>')

@@ -69,6 +69,10 @@ def book(competition, club):
             found_competition = c
             break
 
+    if not found_club or not found_competition:
+        flash("Something went wrong-please try again")
+        return render_template('welcome.html', club=found_club, competitions=competitions)
+
     competition_nb_place_avalaible = int(found_competition['numberOfPlaces'])
     club_points = int(found_club['points'])
     max_place = MAX_PLACE
@@ -81,9 +85,6 @@ def book(competition, club):
 
     if found_club and found_competition:
         return render_template('booking.html', club=found_club, competition=found_competition, max_place=max_place)
-    else:
-        flash("Something went wrong-please try again")
-        return render_template('welcome.html', club=found_club, competitions=competitions)
 
 
 @app.route('/purchasePlaces', methods=['POST'])
@@ -145,6 +146,7 @@ def purchasePlaces():
 @app.route('/viewsPoints')
 def view_points():
     return render_template('points.html', clubs=clubs)
+
 
 @app.route('/logout')
 def logout():

@@ -1,5 +1,4 @@
 from GUDLFT.server import app
-from GUDLFT.tests.conftest import client
 
 
 class TestPurchase:

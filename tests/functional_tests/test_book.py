@@ -1,11 +1,10 @@
 from GUDLFT.server import app
-from GUDLFT.tests.conftest import client
 
 
 class TestBook:
     client = app.test_client()
 
-    def test_book_competition_valild(self):
+    def test_book_competition_valid(self):
         result = self.client.get("/book/Spring Festival/Simply Lift")
         assert result.status_code == 200
 
